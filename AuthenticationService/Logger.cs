@@ -27,13 +27,13 @@
             WriteFile(errorsFile, errorMessage);
         }
 
-        private static void WriteFile(string path, string Message)
+        private static void WriteFile(string path, string message)
         {
             if (!File.Exists(path))
             {
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine(Message);
+                    sw.WriteLine(message);
                 }
             }
         }
