@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
+using System.Security.Claims;
 
 namespace AuthenticationService.Controllers
 {
@@ -10,7 +14,7 @@ namespace AuthenticationService.Controllers
     {
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserController(ILogger logger, IMapper mapper, IUserRepository userRepository) 
         {
@@ -35,6 +39,7 @@ namespace AuthenticationService.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet]
         [Route("viewmodel")]
         public UserViewModel GetUserViewModel()
@@ -56,18 +61,24 @@ namespace AuthenticationService.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public UserViewModel Authenticate(string login, string password)
+        public async Task<UserViewModel> Authenticate(string login, string password)
         {
             if (String.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Запрос не корректен");
 
-            User user = _userRepository.GetByLogin(login);
-
-            if (user is null)
-                throw new AuthenticationException("Пользователь на найден");
-
+            User user = _userRepository.GetByLogin(login) ?? throw new AuthenticationException("Пользователь на найден");
+            
             if (user.Password != password)
                 throw new AuthenticationException("Введенный пароль не корректен");
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login)
+            };
+
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "AppCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
             return _mapper.Map<UserViewModel>(user);
         }
