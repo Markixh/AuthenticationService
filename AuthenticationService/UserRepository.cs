@@ -2,7 +2,7 @@
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<User> _users;
+        private readonly List<User> _users = new List<User>();
 
         public UserRepository()
         {
@@ -15,7 +15,11 @@
                     FirstName = "Иван",
                     LastName = "Иванов",
                     Email = "g@g.com",
-                    Password = "Password"
+                    Password = "Password",
+                    Role = new Role() {
+                        Id = 1,
+                        Name = "Пользователь"
+                    }
                 },
                 new User()
                 {
@@ -24,7 +28,11 @@
                     FirstName = "Петр",
                     LastName = "Петров",
                     Email = "p@g.com",
-                    Password = "Password"
+                    Password = "Password",
+                    Role = new Role() {
+                        Id = 1,
+                        Name = "Пользователь"
+                    }
                 },
                 new User()
                 {
@@ -33,7 +41,11 @@
                     FirstName = "Андрей",
                     LastName = "Марков",
                     Email = "a@ya.ru",
-                    Password = "Password"
+                    Password = "Password",
+                    Role = new Role() {
+                        Id = 2,
+                        Name = "Администратор"
+                    }
                 }
             };
         }

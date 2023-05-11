@@ -15,7 +15,6 @@ namespace AuthenticationService
             FromRussia = GetFromRussiaValue(user.Email);
         }
 
-
         public string GetFullName(string firstName, string lastName)
         {
             return string.Concat(firstName, " ", lastName);

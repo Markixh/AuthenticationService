@@ -39,7 +39,7 @@ namespace AuthenticationService.Controllers
             };
         }
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         [HttpGet]
         [Route("viewmodel")]
         public UserViewModel GetUserViewModel()
@@ -59,11 +59,11 @@ namespace AuthenticationService.Controllers
             return userViewModel;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("authenticate")]
         public async Task<UserViewModel> Authenticate(string login, string password)
         {
-            if (String.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Запрос не корректен");
 
             User user = _userRepository.GetByLogin(login) ?? throw new AuthenticationException("Пользователь на найден");
@@ -73,7 +73,8 @@ namespace AuthenticationService.Controllers
 
             var claims = new List<Claim>()
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "AppCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
