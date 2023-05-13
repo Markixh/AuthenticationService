@@ -50,6 +50,8 @@ namespace AuthenticationService
 
             app.UseAuthentication();
 
+            app.UseLogMiddleware();
+
             app.UseAuthorization();
 
             app.MapControllers();
