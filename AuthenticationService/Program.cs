@@ -1,5 +1,7 @@
+using AuthenticationService.BLL.Services;
+using AuthenticationService.DAL.Repositories;
+using AuthenticationService.Exceptions;
 using AutoMapper;
-using Microsoft.Extensions.Logging;
 
 namespace AuthenticationService
 {
@@ -18,7 +20,7 @@ namespace AuthenticationService
 
             // Add services to the container.
             builder.Services.AddSingleton(mapper);
-            builder.Services.AddSingleton<ILogger, Logger>();
+            builder.Services.AddSingleton<BLL.Services.ILogger, Logger>();
             builder.Services.AddSingleton<IUserRepository, UserRepository>();
             builder.Services.AddControllers();
 
@@ -49,7 +51,6 @@ namespace AuthenticationService
             }
 
             app.UseAuthentication();
-
             app.UseLogMiddleware();
 
             app.UseAuthorization();

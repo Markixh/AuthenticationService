@@ -1,7 +1,8 @@
-﻿using System.Net.Mail;
+﻿using AuthenticationService.DAL.Entities;
+using System.Net.Mail;
 
-namespace AuthenticationService
-{
+namespace AuthenticationService.BLL.Models
+{ 
     public class UserViewModel
     {
         public Guid Id { get; set; }

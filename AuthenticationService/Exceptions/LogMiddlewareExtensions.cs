@@ -1,4 +1,6 @@
-﻿namespace AuthenticationService
+﻿using AuthenticationService.BLL.Middleware;
+
+namespace AuthenticationService.Exceptions
 {
     public static class LogMiddlewareExtensions
     {

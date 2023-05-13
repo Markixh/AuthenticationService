@@ -11,18 +11,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
 using System.Security.Claims;
 
-namespace AuthenticationService.Controllers
+namespace AuthenticationService.PLL.Controllers
 {
     [ExceptionHandler]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly BLL.Services.ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UserController(BLL.Services.ILogger logger, IMapper mapper, IUserRepository userRepository) 
+        public UserController(ILogger logger, IMapper mapper, IUserRepository userRepository) 
         {
             _logger = logger;
             _mapper = mapper;

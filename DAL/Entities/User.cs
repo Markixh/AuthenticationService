@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace AuthenticationService
+﻿namespace AuthenticationService.DAL.Entities
 {
     public class User
     {

@@ -1,11 +1,13 @@
-﻿namespace AuthenticationService
+﻿using AuthenticationService.BLL.Services;
+
+namespace AuthenticationService.BLL.Middleware
 {
     public class LogMiddleware
     {
-        private readonly ILogger _logger;
+        private readonly Services.ILogger _logger;
         private readonly RequestDelegate _next;
 
-        public LogMiddleware(RequestDelegate next, ILogger logger)
+        public LogMiddleware(RequestDelegate next, Services.ILogger logger)
         {
             _next = next;
             _logger = logger;

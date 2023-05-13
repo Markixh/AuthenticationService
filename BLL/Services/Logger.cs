@@ -1,4 +1,4 @@
-﻿namespace AuthenticationService
+﻿namespace AuthenticationService.BLL.Services
 {
     public class Logger : ILogger
     {

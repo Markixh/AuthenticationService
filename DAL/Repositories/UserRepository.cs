@@ -1,4 +1,6 @@
-﻿namespace AuthenticationService
+﻿using AuthenticationService.DAL.Entities;
+
+namespace AuthenticationService.DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {

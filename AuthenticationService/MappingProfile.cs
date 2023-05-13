@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using AuthenticationService.BLL.Models;
+using AuthenticationService.DAL.Entities;
+using AutoMapper;
 
 namespace AuthenticationService
 {
